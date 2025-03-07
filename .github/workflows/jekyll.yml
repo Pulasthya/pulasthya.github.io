@@ -6,7 +6,7 @@ on:
       - main
   pull_request:
     branches-ignore:
-      - main  # Ignore pull requests targeting main to avoid duplicate runs
+      - main  # Ignore PRs targeting main to avoid duplicate runs
 
 jobs:
   build-and-deploy:
@@ -27,9 +27,14 @@ jobs:
     - name: Build site with Jekyll
       run: bundle exec jekyll build
 
-    - name: Deploy to GitHub Pages
-      if: github.event_name == 'push'  # Prevent deployment from running on PRs
-      uses: peaceiris/actions-gh-pages@v3
+    - name: Setup GitHub Pages
+      uses: actions/configure-pages@v3  # Required for GitHub Pages deployment
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v2  # Stores the built site
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./_site
+        path: /public
+
+    - name: Deploy to GitHub Pages
+      if: github.event_name == 'push'  # Deploy only on push to main
+      uses: actions/deploy-pages@v2
