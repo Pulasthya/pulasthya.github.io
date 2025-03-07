@@ -8,6 +8,10 @@ on:
     branches-ignore:
       - main  # Ignore PRs targeting main to avoid duplicate runs
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
