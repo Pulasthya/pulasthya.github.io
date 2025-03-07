@@ -5,8 +5,8 @@ on:
     branches:
       - main
   pull_request:
-    branches:
-      - main
+    branches-ignore:
+      - main  # Ignore pull requests targeting main to avoid duplicate runs
 
 jobs:
   build-and-deploy:
@@ -28,8 +28,8 @@ jobs:
       run: bundle exec jekyll build
 
     - name: Deploy to GitHub Pages
+      if: github.event_name == 'push'  # Prevent deployment from running on PRs
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./_site
-
