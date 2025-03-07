@@ -31,7 +31,7 @@ jobs:
       uses: actions/configure-pages@v3  # Required for GitHub Pages deployment
 
     - name: Upload artifact
-      uses: actions/upload-pages-artifact@v2  # Stores the built site
+      uses: actions/upload-pages-artifact@v3  # Stores the built site
       with:
         path: /public
 
