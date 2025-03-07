@@ -44,4 +44,4 @@ jobs:
       if: github.event_name == 'push'  # Deploy only on push to main
       uses: actions/deploy-pages@v2
       with:
-        artifact-name: jekyll-site
+        artifact_name: jekyll-site
